@@ -10,7 +10,24 @@ import (
 )
 
 var _ = Describe("Mymath", func() {
-    It("calculates π", func() {
-        Ω(mymath.Pi()).Should(BeNumerically("~", math.Pi, 0.001))
+    Describe("Calculating π", func() {
+        var result float64
+        var n int
+
+        JustBeforeEach(func() {
+            result = mymath.Pi(n)
+        })
+
+        Context("with small n", func() {
+            It("calculates π, with possibly low precision", func() {
+                Ω(mymath.Pi(100)).Should(BeNumerically("~", math.Pi, 0.2))
+            })
+        })
+
+        Context("with large n", func() {
+            It("calculates π, with high low precision", func() {
+                Ω(mymath.Pi(10000)).Should(BeNumerically("~", math.Pi, 0.00001))
+            })
+        })
     })
 })
