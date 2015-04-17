@@ -3,9 +3,17 @@ package mymath
 import "math"
 
 func Pi() float64 {
+    ch := make(chan float64)
+    for k := 0; k <= 1000; k++ {
+        go term(ch, float64(k))
+    }
     f := 0.0
     for k := 0; k <= 1000; k++ {
-        f += 4 * math.Pow(-1, float64(k)) / (2*float64(k) + 1)
+        f += <-ch
     }
     return f
+}
+
+func term(ch chan float64, k float64) {
+    ch <- 4 * math.Pow(-1, k) / (2*k + 1)
 }
