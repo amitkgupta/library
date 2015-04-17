@@ -26,7 +26,7 @@ var _ = Describe("Mymath", func() {
 
         Context("with large n", func() {
             It("calculates π, with high low precision", func() {
-                Ω(mymath.Pi(10000)).Should(BeNumerically("~", math.Pi, 0.00001))
+                Ω(mymath.Pi(100000)).Should(BeNumerically("~", math.Pi, 0.00001))
             })
         })
     })
