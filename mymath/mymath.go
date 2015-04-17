@@ -1,8 +1,11 @@
 package mymath
 
 import "math"
+import "runtime"
 
 func Pi() float64 {
+    runtime.GOMAXPROCS(runtime.NumCPU())
+
     ch := make(chan float64)
     for k := 0; k <= 1000; k++ {
         go term(ch, float64(k))
